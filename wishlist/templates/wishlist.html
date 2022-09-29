@@ -3,28 +3,36 @@
 {% block content %}
 
 <nav class="navbar sticky-top" style="background-color: #66ccff;">
-    <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">{{nama}}</span>
+    <div class="container-fluid ms-3 me-3">
+        <a class="navbar-brand mb-0 h1" href="https://github.com/BeastonKing/">{{nama}}</a>
         <a class="btn btn-primary" href="{% url 'wishlist:logout' %}" role="button" style="--bs-btn-bg: #FFFFFF; --bs-btn-color: #3333ff; --bs-btn-hover-bg: #3333ff;--bs-btn-hover-color: #FFFFFF;">Logout</a>
     </div>
 </nav>
 
-<table>
-    <tr>
-    <th>Nama Barang</th>
-    <th>Harga Barang</th>
-    <th>Deskripsi</th>
-    </tr>
-    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-    {% for barang in list_barang %}
-        <tr>
-            <th>{{barang.nama_barang}}</th>
-            <th>{{barang.harga_barang}}</th>
-            <th>{{barang.deskripsi}}</th>
-        </tr>
-    {% endfor %}
-</table>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
+<div class="ps-5 pe-5 mt-4">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+            <th scope="col">Nama Barang</th>
+            <th scope="col">Harga Barang</th>
+            <th scope="col">Deskripsi</th>
+            </tr>
+        </thead>
+    
+    
+        {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+        <tbody class="table-group-divider">
+            {% for barang in list_barang %}
+                <tr>
+                    <th>{{barang.nama_barang}}</th>
+                    <th>{{barang.harga_barang}}</th>
+                    <th>{{barang.deskripsi}}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<h5 class="m-4">Sesi terakhir login: {{ last_login }}</h5>
 
 
 {% endblock content %}
