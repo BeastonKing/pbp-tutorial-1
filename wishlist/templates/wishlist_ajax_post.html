@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+    <title>POST Wishlist with AJAX</title>
+{% endblock meta %}
+
+{% block content %}
+<div style="width: 100vw; height: 100vh;" class="d-flex flex-column justify-content-center align-items-center">
+    <form method="POST" action="" class="d-flex flex-column justify-content-center align-items-center gap-3" style="width: 80%; height: 80%;">
+        {% csrf_token %}
+        <div class="form d-flex flex-column justify-content-between gap-2">
+        <label for="nama_barang">Nama Barang</label>
+        <input
+            type="text"
+            name="nama_barang"
+            id="nama_barang"
+            placeholder="Nama Barang"
+        />
+        </div>
+        <div class="form d-flex flex-column justify-content-between gap-2">
+        <label for="harga_barang">Harga Barang</label>
+        <input
+            name="harga_barang"
+            id="harga_barang"
+            placeholder="Harga Barang"
+        />
+        </div>
+        <div class="form d-flex flex-column justify-content-between gap-2">
+        <label for="deskripsi">Deskripsi</label>
+        <input
+            name="deskripsi"
+            id="deskripsi"
+            placeholder="Deskripsi"
+        />
+        </div>
+        <button class="btn btn-success">Submit</button>
+    </form>
+
+    <div id="message">{{message}}</div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/JavaScript" src="{% static 'script/post_wishlist_ajax.js' %}"></script> 
+{% endblock javascript %}

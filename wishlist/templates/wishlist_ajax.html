@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+    <title>Show Wishlist with AJAX</title>
+{% endblock meta %}
+{% block content %}
+
+<nav class="navbar sticky-top" style="background-color: #66ccff;">
+    <div class="container-fluid ms-3 me-3">
+        <a class="navbar-brand mb-0 h1" href="https://github.com/BeastonKing/" target="_blank">{{nama}} - {{npm}}</a>
+        <div>
+            <a class="btn btn-success" href="{% url 'wishlist:post_wishlist_ajax' %}" role="button">Add Wishlist</a>
+            <a class="btn btn-danger" href="{% url 'wishlist:logout' %}" role="button">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="p-5">
+    
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Nama Barang</th>
+                <th scope="col">Harga Barang</th>
+                <th scope="col">Deskripsi</th>
+            </tr>
+        </thead>
+        
+        
+        <tbody class="table-group-divider" id="isi-tabel">
+        </tbody>
+    </table>
+    
+</div>
+<h5 class="m-4">Sesi terakhir login: {{ last_login }}</h5>
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/JavaScript" src="{% static 'script/wishlist_ajax.js' %}"></script> 
+{% endblock javascript %}

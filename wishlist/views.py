@@ -1,13 +1,13 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
 from wishlist.models import BarangWishlist
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-import datetime
+import datetime, json
 from django.urls import reverse
 
 # Create your views here.
@@ -21,6 +21,35 @@ def show_wishlist(request):
         'last_login': request.COOKIES['last_login'],
     }
     return render(request, "wishlist.html", context)
+
+def show_wishlist_ajax(request):
+    data_barang_wishlist = BarangWishlist.objects.all()
+    context = {
+        'list_barang': data_barang_wishlist,
+        'nama': 'Bintang Pratama',
+        'npm': '2106751373',
+        'last_login': request.COOKIES['last_login'],
+    }
+    return render(request, "wishlist_ajax.html", context)
+
+def post_wishlist_ajax(request):
+    if request.method == 'POST':
+        nama_barang = request.POST['nama_barang']
+        harga_barang = request.POST['harga_barang']
+        deskripsi = request.POST['deskripsi']
+        
+        instance = BarangWishlist(nama_barang=nama_barang, harga_barang=harga_barang, deskripsi=deskripsi)
+        instance.save()
+        
+        data = {
+            "message": 'Submitted Successfully!'
+        }
+        json_object = json.dumps(data, indent = 4) 
+
+        # return JsonResponse(json.loads(json_object))
+        return render(request, 'wishlist_ajax_post.html', data)
+    return render(request, 'wishlist_ajax_post.html')
+
 
 
 def show_data_xml(request):
